@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 data "tls_certificate" "provider" {
-  url = "https://app.terraform.io"
+  url = var.oidc_provider_url
 }
 
 resource "aws_iam_role" "hcp_infragraph_role" {

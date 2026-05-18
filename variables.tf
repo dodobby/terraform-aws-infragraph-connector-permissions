@@ -21,3 +21,6 @@ variable "aws_iam_role_name" {
     error_message = "aws_iam_role_name must be 1-64 characters and use only letters, numbers, and the IAM-supported characters +=,.@_-"
   }
 }
+
+variable "hcp_organization_id" {}
+

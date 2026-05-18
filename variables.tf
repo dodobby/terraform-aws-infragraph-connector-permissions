@@ -14,7 +14,7 @@ variable "oidc_provider_url" {
 variable "aws_iam_role_name" {
   type        = string
   description = "Name of the AWS IAM role to create for HCP InfraGraph access. Related policy names are derived from this by trimming a trailing -role suffix."
-  default     = "hcp_infragraph-role"
+  default     = "hjdo-hcp-infragraph-role"
 
   validation {
     condition     = length(var.aws_iam_role_name) > 0 && length(var.aws_iam_role_name) <= 64 && can(regex("^[A-Za-z0-9+=,.@_-]+$", var.aws_iam_role_name))

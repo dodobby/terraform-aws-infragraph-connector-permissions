@@ -47,21 +47,6 @@ data "aws_iam_policy_document" "hcp_infragraph_oidc_assume_role_policy" {
       # 위에서 생성한 OIDC 공급자의 ARN
       identifiers = [aws_iam_openid_connect_provider.hcp_infragraph.arn]
     }
-
-    # 조건 1: 우리 HCP 조직에서 보낸 요청인지 확인
-    condition {
-      test     = "StringLike" # 뒤에 다른 내용이 붙어있으므로 Like를 사용합니다.
-      variable = "${replace(var.oidc_provider_url, "https://", "")}:sub"
-      # 조직 ID 뒤에 무엇이 오든(*) 우리 조직 ID로 시작하면 허용합니다.
-      values   = ["organization:${var.hcp_organization_id}:*"]
-    }
-
-    # 조건 2: 이 신분증의 용도가 InfraGraph용인지 확인 (보안상 유지 권장)
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(var.oidc_provider_url, "https://", "")}:aud"
-      values   = ["graph.connector.aws"]
-    }
   }
 }
 

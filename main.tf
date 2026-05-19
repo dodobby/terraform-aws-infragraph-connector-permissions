@@ -22,7 +22,6 @@ resource "aws_iam_openid_connect_provider" "hcp_infragraph" {
   ]
 }
 
-/*
 data "aws_iam_policy_document" "hcp_infragraph_oidc_assume_role_policy" {
   statement {
     effect = "Allow"
@@ -33,28 +32,6 @@ data "aws_iam_policy_document" "hcp_infragraph_oidc_assume_role_policy" {
       type        = "Federated"
       identifiers = [aws_iam_openid_connect_provider.hcp_infragraph.arn]
     }
-  }
-}
-*/
-
-data "aws_iam_policy_document" "hcp_infragraph_oidc_assume_role_policy" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-
-    principals {
-      type        = "Federated"
-      # 위에서 생성한 OIDC 공급자의 ARN
-      identifiers = [aws_iam_openid_connect_provider.hcp_infragraph.arn]
-    }
-
-    # 조건 2: 이 신분증의 용도가 InfraGraph용인지 확인 (보안상 유지 권장)
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(var.oidc_provider_url, "https://", "")}:aud"
-      values   = ["graph.connector.aws"]
-    }
-
   }
 }
 

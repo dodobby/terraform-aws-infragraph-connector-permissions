@@ -45,6 +45,12 @@ locals {
       "ecs:ListServices",
       "ecs:DescribeCapacityProviders",
     ]
+    ecr = [
+      "ecr:DescribeRepositories",
+      "ecr:ListImages",
+      "ecr:DescribeImages",
+      "ecr:ListTagsForResource"
+    ]
     iam = [
       "iam:GetPolicyVersion",
       "iam:ListAttachedRolePolicies",
